@@ -30,7 +30,7 @@ public class FileBrowser {
             OutputStream output=client.getOutputStream();
             while(true){
                 out=rd.nextLine();
-                if(out=="exit"){return false;}
+                if(out=="exit"){break;}
                 else
                 output.write(out.getBytes());
                 output.flush();
