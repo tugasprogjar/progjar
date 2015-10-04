@@ -1,2 +1,3 @@
-versi1: file browser lokal tanpa hubungan client server
-versi2: file browser ganti pakai library file, karena jfilechooser tidak bisa dipakai client server
+versi1	: file browser lokal tanpa hubungan client server
+versi2	: file browser ganti pakai library file, karena jfilechooser tidak bisa dipakai client server
+versi2.1: fungsi ls dan mkkdir sudah ada tapi belum sempurna
