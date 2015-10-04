@@ -4,70 +4,57 @@
  * and open the template in the editor.
  */
 package filebrowser;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.Scanner;
 
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-/**
- *
- * @author Ilham
- */
 public class FileBrowser {
-    private JFrame frame;
-    private JTextField txtfield;
-  
-public static void main(String[] args) {
-        // TODO code application logic here
-        EventQueue.invokeLater (new Runnable(){
-        public void run(){        
-        FileBrowser window=new FileBrowser();
-        window.frame.setVisible(true);
-}
-}
-);
-    
-    
-}
 
-public FileBrowser(){
-    initialize();
-}
-
-private void initialize(){
-    frame=new JFrame("Pencarian");
-    frame.setBounds(200,100,500,400);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.getContentPane().setLayout(null);
-    
-    txtfield= new JTextField();
-    txtfield.setBounds(10,100,450,20);
-    frame.getContentPane().add(txtfield);
-    txtfield.setColumns(10);
-    
-    JButton tombol=new JButton("Tampilkan Direktori");
-    tombol.setBounds(150,125,200, 40);
-    frame.getContentPane().add(tombol);
-    
-    tombol.addActionListener(new ActionListener(){
-        public void actionPerformed(ActionEvent e){
-            JFileChooser pencari=new JFileChooser();
-            //pencari.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);    //untuk direktori saja
-            //pencari.setFileSelectionMode(JFileChooser.FILES_ONLY);          //untuk file saja
-            pencari.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-            pencari.setAcceptAllFileFilterUsed(false);
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        InputStream input=null;
+        try {
+            // TODO code application logic here
+            byte[] data=new byte[10];
+            String out;
+            int len;
+            Scanner rd=new Scanner(System.in);
+            Socket client=new Socket("localhost",1001);
+            input = client.getInputStream();
+            OutputStream output=client.getOutputStream();
+            while(true){
+                out=rd.nextLine();
+                if(out=="exit"){return false;}
+                else
+                output.write(out.getBytes());
+                output.flush();
+                while(true){
+                    len=input.read(data);
+                    
+                    if(len==-1){
+                        break;
+                    }
+                    System.out.println(new String(data));
+                }
+            }
             
-            int app=pencari.showOpenDialog(null);
-            if(app==JFileChooser.APPROVE_OPTION){
-             txtfield.setText(pencari.getSelectedFiles().toString());
-             
+        } catch (IOException ex) {
+            Logger.getLogger(FileBrowser.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                input.close();
+            } catch (IOException ex) {
+                Logger.getLogger(FileBrowser.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-    });
+    
+           }
+    
 }
-}
+
