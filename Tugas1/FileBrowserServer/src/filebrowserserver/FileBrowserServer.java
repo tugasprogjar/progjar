@@ -23,7 +23,7 @@ public class FileBrowserServer {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+
         try {
             // TODO code application logic here
             byte[] data=new byte[10];
@@ -33,33 +33,37 @@ public class FileBrowserServer {
             System.out.println("Connected");
             InputStream is=server.getInputStream();
             OutputStream os=server.getOutputStream();
-            String curdir="c/:";
+            String curdir="c:/";
             File file=new File(curdir);
-            
-         //   os.write("hancok".getBytes());
+
+
             File[] list=file.listFiles();
             while(true){
                 is.read(data);
-                
                 String cl=new String(data,"UTF-8");
                 System.out.println(cl);
-                if("ls".equals(cl)){
+                if("ls        ".equals(cl)){
                     for(File f1 : list){
                         System.out.println(f1.getName());
+                        int slength=f1.getName().length();
+                        data=new byte[slength];
                         data=f1.getName().getBytes();
                         os.write(data);
                         os.flush();
                     }
                 }
-                if("mkdir".equals(cl)){
-                    new File(curdir+"newfolder").mkdir();
-                    
+                else
+                if("mkdir     ".equals(cl)){
+                    is.read(data);
+                    String namafolder=new String(data,"UTF-8");
+                    new File(curdir+namafolder).mkdir();
+                    os.write("Direktori baru sudah dibuat".getBytes());
                 }
             }
         } catch (IOException ex) {
             Logger.getLogger(FileBrowserServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
 }
