@@ -59,6 +59,16 @@ public class FileBrowserServer {
                     new File(curdir+namafolder).mkdir();
                     os.write("Direktori baru sudah dibuat".getBytes());
                 }
+                else
+                if("cd        ".equals(cl)){
+                    is.read(data);
+                    String namaFldr = new String(data,"UTF-8");
+                    curdir = namaFldr;
+                    File pindah;
+                    pindah = new File(curdir);
+                    file = pindah;
+                    //os.write("Sudah pindah directory".getBytes());
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(FileBrowserServer.class.getName()).log(Level.SEVERE, null, ex);
