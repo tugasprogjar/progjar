@@ -25,22 +25,32 @@ public class FileBrowser {
             String out;
             int len;
             Scanner rd=new Scanner(System.in);
-            Socket client=new Socket("localhost",1001);
+            Socket client=new Socket("localhost",6666);
             input = client.getInputStream();
             OutputStream output=client.getOutputStream();
             while(true){
                 out=rd.nextLine();
-                if(out=="exit"){break;}
+                if("exit".equals(out)){break;}
+                else
+                if("mkdir     ".equals(out)){
+                  output.write(out.getBytes());
+                  output.flush();
+                  out=rd.nextLine();
+                  output.write(out.getBytes());
+                  output.flush();
+                }
                 else
                 output.write(out.getBytes());
                 output.flush();
+                
                 while(true){
+                    data=new byte[1024];
                     len=input.read(data);
                     
                     if(len==-1){
                         break;
                     }
-                    System.out.println(new String(data));
+                    System.out.println(new String(data)+"/n");
                 }
             }
             
