@@ -34,7 +34,7 @@ public class FileBrowserServer {
             System.out.println("Connected");
             InputStream is=server.getInputStream();
             OutputStream os=server.getOutputStream();
-            String curdir="c:/";
+            String curdir="e:/";
             
             File file=new File(curdir);
 
@@ -62,6 +62,7 @@ public class FileBrowserServer {
                     
                     int ln=-1;
                    os.write(ln);
+                   
                     
                     
                     

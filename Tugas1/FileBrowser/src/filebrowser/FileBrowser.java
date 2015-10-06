@@ -64,10 +64,15 @@ public class FileBrowser {
                 
                 while(true){
                     panjang=input.read();
+                     //System.out.println(panjang);
+                    if(panjang==255){
+                        break;
+                    }
                     data=new byte[panjang];
                     len=input.read(data); 
                     
                     System.out.println(new String(data));
+                   
                     
                   
                 }
