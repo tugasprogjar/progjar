@@ -23,35 +23,55 @@ public class FileBrowser {
             // TODO code application logic here
             byte[] data=new byte[10];
             String out;
-            int len;
+            int len=0;
+            int panjang,cek;
             Scanner rd=new Scanner(System.in);
             Socket client=new Socket("localhost",6666);
             input = client.getInputStream();
             OutputStream output=client.getOutputStream();
             while(true){
                 out=rd.nextLine();
+                panjang=out.length();
+                output.write(panjang);
                 if("exit".equals(out)){break;}
                 else
-                if("mkdir     ".equals(out)){
+                if("mkdir".equals(out)){
                   output.write(out.getBytes());
                   output.flush();
                   out=rd.nextLine();
+                  panjang=out.length();
+                  output.write(panjang);
+                  output.write(out.getBytes());
+                  output.flush();
+                  
+                }else
+                  if("cd".equals(out)){
+                  output.write(out.getBytes());
+                  output.flush();
+                  out=rd.nextLine();
+                  //panjang=out.length();
+                  //output.write(panjang);
                   output.write(out.getBytes());
                   output.flush();
                 }
                 else
+                  {
                 output.write(out.getBytes());
                 output.flush();
+                  }
+                //panjang=input.read();
+                //data=new byte[panjang];
                 
                 while(true){
-                    data=new byte[1024];
-                    len=input.read(data);
+                    panjang=input.read();
+                    data=new byte[panjang];
+                    len=input.read(data); 
                     
-                    if(len==-1){
-                        break;
-                    }
-                    System.out.println(new String(data)+"/n");
+                    System.out.println(new String(data));
+                    
+                  
                 }
+               
             }
             
         } catch (IOException ex) {
