@@ -41,7 +41,7 @@ public class FileBrowserServer {
             String cl = null;
           //  File[] list=file.listFiles();
             while(!"exit".equals(cl)){
-                File[] list=file.listFiles();
+               // File[] list=file.listFiles();
                 int panjang=is.read();
                 data=new byte[panjang];
                 is.read(data);
@@ -50,6 +50,7 @@ public class FileBrowserServer {
                 //data=new byte[10];
                 System.out.println(cl);
                 if("ls".equals(cl)){
+                    File[] list=file.listFiles();
                     for(File f1 : list){
                         System.out.println(f1.getName());
                         int slength=f1.getName().length();

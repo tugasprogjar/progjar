@@ -55,10 +55,13 @@ public class FileBrowser {
                   output.write(out.getBytes());
                   output.flush();
                 }
-                else
-                  {
+                  else if("ls".equals(out)){
+                  
                 output.write(out.getBytes());
                 output.flush();
+                  
+                 }else{
+                  break;
                   }
                 //panjang=input.read();
                 //data=new byte[panjang];
