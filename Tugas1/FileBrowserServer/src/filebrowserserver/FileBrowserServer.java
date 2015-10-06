@@ -39,8 +39,9 @@ public class FileBrowserServer {
             File file=new File(curdir);
 
             String cl = null;
-            File[] list=file.listFiles();
+          //  File[] list=file.listFiles();
             while(!"exit".equals(cl)){
+                File[] list=file.listFiles();
                 int panjang=is.read();
                 data=new byte[panjang];
                 is.read(data);
@@ -85,13 +86,15 @@ public class FileBrowserServer {
                 }
                  else
                 if("cd".equals(cl)){
-                    data=new byte[100];
+                    //data=new byte[100];
+                    panjang=is.read();
+                    data=new byte[panjang];
                     is.read(data);
-                    String namaFldr = new String(data,"UTF-8");
-                    curdir = namaFldr;
-                    File pindah;
-                    pindah = new File(curdir);
-                    file = pindah;
+                    curdir = new String(data,"UTF-8");
+                    System.out.println(curdir);
+                    //curdir = namaFldr;
+                    file=new File(curdir);
+                   // File[] list=file.listFiles();
                     os.write("Sudah pindah directory".getBytes());
                     os.write(255);
                 }

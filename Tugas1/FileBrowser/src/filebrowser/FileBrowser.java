@@ -51,6 +51,7 @@ public class FileBrowser {
                   out=rd.nextLine();
                   //panjang=out.length();
                   //output.write(panjang);
+                  output.write(out.length());
                   output.write(out.getBytes());
                   output.flush();
                 }
