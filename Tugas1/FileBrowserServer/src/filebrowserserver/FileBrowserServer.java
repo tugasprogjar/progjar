@@ -63,11 +63,7 @@ public class FileBrowserServer {
                     int ln=-1;
                    os.write(ln);
                    
-                    
-                    
-                    
-                    
-                   
+  
                 }
                 else
                 if("mkdir".equals(cl)){
@@ -84,6 +80,7 @@ public class FileBrowserServer {
                     String s="Direktori baru sudah dibuat";
                     os.write(s.length());
                     os.write(s.getBytes());
+                    os.write(255);
                     
                 }
                  else
@@ -96,7 +93,7 @@ public class FileBrowserServer {
                     pindah = new File(curdir);
                     file = pindah;
                     os.write("Sudah pindah directory".getBytes());
-                    
+                    os.write(255);
                 }
                 
             }
