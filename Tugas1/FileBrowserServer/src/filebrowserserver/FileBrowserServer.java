@@ -12,7 +12,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.File;
-import java.util.Arrays;
+//import java.util.Arrays;
 /**
  *
  * @author Ilham
@@ -26,7 +26,7 @@ public class FileBrowserServer {
 
         try {
             // TODO code application logic here
-            byte[] data=new byte[10];
+            byte[] data;//new byte[10];
             //byte[] data1=new byte[10];
             ServerSocket ss=new ServerSocket(6666);
             System.out.println("Online");
@@ -95,7 +95,9 @@ public class FileBrowserServer {
                     System.out.println(curdir);
                     //curdir = namaFldr;
                     file=new File(curdir);
-                   // File[] list=file.listFiles();
+                    int i;
+                    i = "Sudah pindah directory".length();
+                    os.write(i);
                     os.write("Sudah pindah directory".getBytes());
                     os.write(255);
                 }

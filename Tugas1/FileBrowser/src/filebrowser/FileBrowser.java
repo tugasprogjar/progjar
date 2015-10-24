@@ -21,54 +21,53 @@ public class FileBrowser {
         InputStream input=null;
         try {
             // TODO code application logic here
-            byte[] data=new byte[10];
+            byte[] data;//=new byte[10];
             String out;
             int len=0;
-            int panjang,cek;
+            int panjang;
             Scanner rd=new Scanner(System.in);
             Socket client=new Socket("localhost",6666);
             input = client.getInputStream();
             OutputStream output=client.getOutputStream();
-            while(true){
+            OUTER:
+            while (true) {
                 out=rd.nextLine();
                 panjang=out.length();
                 output.write(panjang);
-                if("exit".equals(out)){break;}
-                else
-                if("mkdir".equals(out)){
-                  output.write(out.getBytes());
-                  output.flush();
-                  out=rd.nextLine();
-                  panjang=out.length();
-                  output.write(panjang);
-                  output.write(out.getBytes());
-                  output.flush();
-                  
-                }else
-                  if("cd".equals(out)){
-                  output.write(out.getBytes());
-                  output.flush();
-                  out=rd.nextLine();
-                  //panjang=out.length();
-                  //output.write(panjang);
-                  output.write(out.length());
-                  output.write(out.getBytes());
-                  output.flush();
-                }
-                  else if("ls".equals(out)){
-                  
-                output.write(out.getBytes());
-                output.flush();
-                  
-                 }else{
-                  break;
-                  }
+                switch (out) {
+                    case "exit":
+                        break OUTER;
+                    case "mkdir":
+                        output.write(out.getBytes());
+                        output.flush();
+                        out=rd.nextLine();
+                        panjang=out.length();
+                        output.write(panjang);
+                        output.write(out.getBytes());
+                        output.flush();
+                        break;
+                    case "cd":
+                        output.write(out.getBytes());
+                        output.flush();
+                        out=rd.nextLine();
+                        //panjang=out.length();
+                        //output.write(panjang);
+                        output.write(out.length());
+                        output.write(out.getBytes());
+                        output.flush();
+                        break;
                 //panjang=input.read();
                 //data=new byte[panjang];
-                
+                    case "ls":                
+                        output.write(out.getBytes());
+                        output.flush();
+                        break;
+                    default:
+                        break OUTER;
+                }
                 while(true){
                     panjang=input.read();
-                     //System.out.println(panjang);
+                    //System.out.println(panjang);
                     if(panjang==255){
                         break;
                     }
@@ -76,11 +75,10 @@ public class FileBrowser {
                     len=input.read(data); 
                     
                     System.out.println(new String(data));
-                   
                     
                   
+                    
                 }
-               
             }
             
         } catch (IOException ex) {
