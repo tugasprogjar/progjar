@@ -26,7 +26,7 @@ public class FileBrowser {
             int len=0;
             int panjang;
             Scanner rd=new Scanner(System.in);
-            Socket client=new Socket("localhost",6666);
+            Socket client=new Socket("localhost",1234);
             input = client.getInputStream();
             OutputStream output=client.getOutputStream();
             OUTER:
