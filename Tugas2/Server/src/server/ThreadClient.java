@@ -55,9 +55,10 @@ public class ThreadClient implements Runnable{
                         os.flush();
                         
                     }
-                    
+                    os.write(255);
                    // int ln=-1;
                    //os.write(ln);
+                   //System.out.println("selesai");
                    
   
                 }

@@ -62,12 +62,29 @@ public class FileBrowser {
                         output.write(out.getBytes());
                         output.flush();
                         break;
+                    case "upload":
+                        out=rd.nextLine();
+                        output.write(out.length());
+                        output.write(out.getBytes());
+                         out=rd.nextLine();
+                        output.write(out.length());
+                        output.write(out.getBytes());
+                        output.flush();
+                        break;
+                    case "download":
+                        out=rd.nextLine();
+                         output.write(out.length());
+                        output.write(out.getBytes());
+                        output.flush();
+                        break;
+                        
                     default:
                         break OUTER;
+                        
                 }
                 while(true){
                     panjang=input.read();
-                    //System.out.println(panjang);
+                    System.out.println(panjang);
                     if(panjang==255){
                         break;
                     }
@@ -79,6 +96,7 @@ public class FileBrowser {
                   
                     
                 }
+                //System.out.println("selesai");
             }
             
         } catch (IOException ex) {
