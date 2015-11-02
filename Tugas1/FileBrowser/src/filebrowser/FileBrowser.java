@@ -63,13 +63,19 @@ public class FileBrowser {
                         output.flush();
                         break;
                     case "upload":
-                        out=rd.nextLine();
-                        output.write(out.length());
-                        output.write(out.getBytes());
-                         out=rd.nextLine();
-                        output.write(out.length());
                         output.write(out.getBytes());
                         output.flush();
+                        String file;
+                        String des;
+                        file=rd.nextLine();
+                        output.write(file.length());
+                        output.write(file.getBytes());
+                        output.flush();
+                        des=rd.nextLine();
+                        output.write(des.length());
+                        output.write(des.getBytes());
+                        output.flush();
+                        
                         break;
                     case "download":
                         out=rd.nextLine();
@@ -84,7 +90,7 @@ public class FileBrowser {
                 }
                 while(true){
                     panjang=input.read();
-                    System.out.println(panjang);
+                   // System.out.println(panjang);
                     if(panjang==255){
                         break;
                     }

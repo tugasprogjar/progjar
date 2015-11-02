@@ -5,6 +5,9 @@
  */
 package server;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.net.Socket;
 import java.io.IOException;
 import java.io.InputStream;
@@ -83,19 +86,42 @@ public class ThreadClient implements Runnable{
                  else
                 if("cd".equals(cl)){
                     //data=new byte[100];
+                    int i;
+                    i = "Sudah pindah ke directory:".length();
+                    os.write(i);
+                    os.write("Sudah pindah ke directory:".getBytes());
                     panjang=is.read();
                     data=new byte[panjang];
                     is.read(data);
                     curdir = new String(data,"UTF-8");
-                    System.out.println(curdir);
+                    os.write(curdir.length());
+                    os.write(curdir.getBytes());
+                    //System.out.println(curdir);
                     //curdir = namaFldr;
                     file=new File(curdir);
-                    int i;
-                    i = "Sudah pindah directory".length();
-                    os.write(i);
-                    os.write("Sudah pindah directory".getBytes());
+                    
                     os.write(255);
-                }
+                }else
+                    if("upload".equals(cl)){
+                        panjang=is.read();
+                    data=new byte[panjang];
+                    is.read(data);
+                    String fl = new String(data,"UTF-8");
+                    File source=new File(fl);
+                    
+                    panjang=is.read();
+                    data=new byte[panjang];
+                    is.read(data);
+                    String ds = new String(data,"UTF-8");
+                    File destination=new File(ds);
+                        if (destination.isDirectory()){
+                        destination = new File(destination, source.getName());
+                        FileInputStream input = new FileInputStream(source);
+                        copyFile(input, destination);
+                        }
+                        
+                    }
+                
                 
             }
             os.close();
@@ -106,5 +132,23 @@ public class ThreadClient implements Runnable{
         }
 
     }
+    public static void copyFile(InputStream input, File destination) throws FileNotFoundException, IOException {
+    OutputStream output = null;
+
+    output = new FileOutputStream(destination);
+
+    byte[] buffer = new byte[1024];
+
+    int bytesRead = input.read(buffer);
+
+    while (bytesRead >= 0) {
+      output.write(buffer, 0, bytesRead);
+      bytesRead = input.read(buffer);
+    }
+
+    input.close();
+
+    output.close();
+  }
     }
 
