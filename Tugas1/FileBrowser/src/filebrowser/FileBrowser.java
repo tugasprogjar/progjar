@@ -71,10 +71,7 @@ public class FileBrowser {
                         output.write(file.length());
                         output.write(file.getBytes());
                         output.flush();
-                        des=rd.nextLine();
-                        output.write(des.length());
-                        output.write(des.getBytes());
-                        output.flush();
+                        
                         
                         break;
                     case "download":

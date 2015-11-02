@@ -31,7 +31,7 @@ public class ThreadClient implements Runnable{
           
             InputStream is=socket.getInputStream();
             OutputStream os=socket.getOutputStream();
-            String curdir="c:/";
+            String curdir="e:/";
             
             File file=new File(curdir);
 
@@ -108,17 +108,23 @@ public class ThreadClient implements Runnable{
                     is.read(data);
                     String fl = new String(data,"UTF-8");
                     File source=new File(fl);
+                    System.out.println(fl);
                     
-                    panjang=is.read();
-                    data=new byte[panjang];
-                    is.read(data);
-                    String ds = new String(data,"UTF-8");
-                    File destination=new File(ds);
+                    
+                    //System.out.println(ds);
+                    File destination=new File("e:/");
                         if (destination.isDirectory()){
                         destination = new File(destination, source.getName());
                         FileInputStream input = new FileInputStream(source);
                         copyFile(input, destination);
                         }
+                        
+                        int i;
+                        i = "File Sudah terupload".length();
+                        os.write(i);
+                        os.write("File Sudah terupload".getBytes());
+                        os.write(255);
+                        
                         
                     }
                 
