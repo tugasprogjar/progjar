@@ -103,7 +103,7 @@ public class ThreadClient implements Runnable{
                     os.write(255);
                 }else
                     if("upload".equals(cl)){
-                        panjang=is.read();
+                    panjang=is.read();
                     data=new byte[panjang];
                     is.read(data);
                     String fl = new String(data,"UTF-8");
@@ -112,7 +112,7 @@ public class ThreadClient implements Runnable{
                     
                     
                     //System.out.println(ds);
-                    File destination=new File("e:/");
+                    File destination=new File("a:/");
                         if (destination.isDirectory()){
                         destination = new File(destination, source.getName());
                         FileInputStream input = new FileInputStream(source);
@@ -123,6 +123,33 @@ public class ThreadClient implements Runnable{
                         i = "File Sudah terupload".length();
                         os.write(i);
                         os.write("File Sudah terupload".getBytes());
+                        os.write(255);
+                        
+                        
+                    }else
+                    if("download".equals(cl)){
+                    panjang=is.read();
+                    data=new byte[panjang];
+                    is.read(data);
+                    String fl = new String(data,"UTF-8");
+                    File source=new File("a:/"+fl);
+                    panjang=is.read();
+                    data=new byte[panjang];
+                    is.read(data);
+                    String f2=new String(data,"UTF-8");
+                    
+                    System.out.println("from "+"a:/"+fl);
+                    File destination=new File(f2);
+                        if (destination.isDirectory()){
+                        destination = new File(destination, source.getName());
+                        FileInputStream input = new FileInputStream(source);
+                        copyFile(input, destination);
+                        }
+                        
+                        int i;
+                        i = "File Sudah didownload".length();
+                        os.write(i);
+                        os.write("File Sudah didownload".getBytes());
                         os.write(255);
                         
                         

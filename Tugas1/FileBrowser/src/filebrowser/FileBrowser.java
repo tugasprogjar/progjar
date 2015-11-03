@@ -75,6 +75,13 @@ public class FileBrowser {
                         
                         break;
                     case "download":
+                        output.write(out.getBytes());
+                        output.flush();
+                        out=rd.nextLine();
+                        //System.out.println(out);
+                         output.write(out.length());
+                        output.write(out.getBytes());
+                        output.flush();
                         out=rd.nextLine();
                          output.write(out.length());
                         output.write(out.getBytes());
