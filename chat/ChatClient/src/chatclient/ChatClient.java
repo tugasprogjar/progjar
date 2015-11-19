@@ -20,9 +20,9 @@ import java.util.logging.Logger;
 public class ChatClient {
 
     /**
-     * @param args the command line arguments
+     * @param name
      */
-    public static void main(String[] args) {
+    public static void main(String name) {
         try {
             Socket socket = new Socket("localhost", 6666);
             ThreadRead tr = new ThreadRead(socket);
@@ -30,9 +30,8 @@ public class ChatClient {
             t.start();
             
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            System.out.print("Username : ");
-            String username = br.readLine();
-            
+            System.out.print("Username : " + name + "\n");
+                        
             while(true) {
                 String msg = br.readLine();
                 if(msg.equalsIgnoreCase("end")) {
@@ -41,7 +40,7 @@ public class ChatClient {
                 
                 Message objMsg = new Message();
                 objMsg.setMessage(msg);
-                objMsg.setSender(username);
+                //objMsg.setSender(username);
                 tr.send(objMsg);
             }
             
