@@ -123,7 +123,7 @@ public class GUIChatClient extends javax.swing.JFrame {
                             break;
                        
                         case "login":
-                            viewTextArea.setText(viewTextArea.getText() +"\n" + pengirim + " sedah login..." + "\n");
+                            viewTextArea.setText(viewTextArea.getText() +"\n" + pengirim + " sudah login..." + "\n");
                             clients.add(pengirim);
                             break;
                         case "logout":
@@ -180,6 +180,7 @@ public class GUIChatClient extends javax.swing.JFrame {
             }
         });
 
+        viewTextArea.setEditable(false);
         viewTextArea.setColumns(20);
         viewTextArea.setRows(5);
         jScrollPane1.setViewportView(viewTextArea);
