@@ -28,7 +28,6 @@ public class GUIChatClient extends javax.swing.JFrame {
     private ObjectOutputStream output;
     private Socket socket;
     private String server, username;
-    private int port;
     private List<String> clients;
     public GUIChatClient() {
         initComponents();
@@ -52,7 +51,7 @@ public class GUIChatClient extends javax.swing.JFrame {
             input = new ObjectInputStream(socket.getInputStream());
             output = new ObjectOutputStream(socket.getOutputStream());
         } catch (IOException eIO) {
-            System.out.println("Exception creating new Input/output Streams: " + eIO);
+            System.out.println("Exception IO Streams: " + eIO);
             return false;
         }
  
@@ -114,15 +113,15 @@ public class GUIChatClient extends javax.swing.JFrame {
                     String kepada = msg.split("~")[3];
                     switch (type) {
                         case "recieveText":
-                            res = pengirim + ": " + text;
+                            if(pengirim.equals(username)){
+                                res = "You" + ": " + text;
+                            }else{
+                                res = pengirim + ": " + text;
+                            }
+                            
                             viewTextArea.setText(viewTextArea.getText() + res + "\n");
                             break;
-                        case "recievePrivateText":
-                            res = pengirim + ": " + text;
-                            if (kepada.equals(username)) {
-                                viewTextArea.setText(viewTextArea.getText() + res + "\n");
-                            }
-                            break;
+                       
                         case "login":
                             viewTextArea.setText(viewTextArea.getText() +"\n" + pengirim + " sedah login..." + "\n");
                             clients.add(pengirim);
@@ -175,6 +174,12 @@ public class GUIChatClient extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        username1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                username1ActionPerformed(evt);
+            }
+        });
+
         viewTextArea.setColumns(20);
         viewTextArea.setRows(5);
         jScrollPane1.setViewportView(viewTextArea);
@@ -183,6 +188,12 @@ public class GUIChatClient extends javax.swing.JFrame {
         TmblConnect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TmblConnectActionPerformed(evt);
+            }
+        });
+
+        postTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                postTextFieldActionPerformed(evt);
             }
         });
 
@@ -248,6 +259,16 @@ public class GUIChatClient extends javax.swing.JFrame {
             Logger.getLogger(GUIChatClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_TmblKirimActionPerformed
+
+    private void username1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_username1ActionPerformed
+        // TODO add your handling code here:
+        TmblConnectActionPerformed(evt);
+    }//GEN-LAST:event_username1ActionPerformed
+
+    private void postTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postTextFieldActionPerformed
+        // TODO add your handling code here:
+        TmblKirimActionPerformed(evt);
+    }//GEN-LAST:event_postTextFieldActionPerformed
 
     /**
      * @param args the command line arguments

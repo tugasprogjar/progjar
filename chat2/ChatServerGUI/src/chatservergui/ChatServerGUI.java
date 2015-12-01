@@ -19,21 +19,21 @@ import java.util.ArrayList;
  */
 public class ChatServerGUI {
 
-    private static int uniqueId;
+   
     private ArrayList<ChatServerGUI.ClientThread> clients;
     //private List<String> clients;
     private int port;
     private boolean keepGoing;
     
     public ChatServerGUI() {
-        this.port = 6666;
+      
         clients = new ArrayList<>();
     }
     
     public void start() {
         keepGoing = true;
         try {
-            ServerSocket serverSocket = new ServerSocket(port);
+            ServerSocket serverSocket = new ServerSocket(6666);
             while (keepGoing) {
                 System.out.println("ChatServer waiting for Clients on port " + port + ".");
                 Socket socket = serverSocket.accept();
@@ -110,9 +110,9 @@ public class ChatServerGUI {
         private String username;
 
         public ClientThread(Socket socket) {
-            id = ++uniqueId;
+            
             this.socket = socket;
-            System.out.println("Menciptakan Object Input/Output Streams");
+            System.out.println("Menciptakan IO Streams");
             try {
                 sOutput = new ObjectOutputStream(socket.getOutputStream());
                 sInput = new ObjectInputStream(socket.getInputStream());
@@ -120,7 +120,7 @@ public class ChatServerGUI {
                 username = message.split("~")[1];
                 System.out.println(username + " masuk.");
             } catch (IOException e) {
-                System.out.println("Exception creating new Input/output Streams: " + e);
+                System.out.println("Exception IO Streams: " + e);
             } catch (ClassNotFoundException e) {
             }
         }
@@ -151,10 +151,7 @@ public class ChatServerGUI {
                         response = "recieveText~" + pengirim + "~" + text + "~" + kepada + "~\n";
                         send(response);
                         break;
-                    case "postPrivateText":
-                        response = "recievePrivateText~" + pengirim + "~" + text + "~" + kepada + "~\n";
-                        send(response);
-                        break;
+               
                     case "login":
                         response = "login~" + pengirim + "~" + text + "~" + kepada + "~\n";
                         send(response);
