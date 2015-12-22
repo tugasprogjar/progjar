@@ -16,17 +16,17 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class Mangiare {
-    ArrayList<Blob> blobs = new ArrayList<Blob>();
-    public ArrayList<Dot> dots = new ArrayList<Dot>();
-    Blob b = new Blob(10,10,10,Color.blue,10);
+    ArrayList<Player> blobs = new ArrayList<Player>();
+    public ArrayList<Food> dots = new ArrayList<Food>();
+    Player b = new Player(10,10,10,Color.blue,10);
     int mouseX = 0;
     int mouseY = 0;
     static int score =10;
     static int xDis = 0;
     static int yDis = 0;
-    int te;
+    int cek;
     
-    MyFrame mf = new MyFrame("Agario");
+    MyFrame mf = new MyFrame("Mangiare");
     
     public static void main(String[] args){
         new Mangiare().startGame();
@@ -36,7 +36,7 @@ public class Mangiare {
         Refresh rf = new Refresh();
         Thread t = new Thread(rf);
         t.start();
-        sebar();
+        sebarMakanan();
         while(true){
             try{
                 Random r = new Random();
@@ -47,9 +47,9 @@ public class Mangiare {
                     b.x += easingAmount*xDis/dis;
                     b.y += easingAmount*yDis/dis;    
                 }
-                if(te == 1){
+                if(cek == 1){
                     tambahMakanan();
-                    te=0;
+                    cek=0;
                     System.out.println(score);
                 }
                 mf.repaint();
@@ -60,14 +60,14 @@ public class Mangiare {
             
         }
     }
-    public void sebar(){
+    public void sebarMakanan(){
         int i;
         Random r = new Random();
         try {
             for(i=0;i<51;i++){
                 int randX = r.nextInt(900);
                 int randY = r.nextInt(600);
-                Dot d = new Dot(randX,randY);
+                Food d = new Food(randX,randY);
                 synchronized(dots){
                     dots.add(d);
                 }
@@ -83,7 +83,7 @@ public class Mangiare {
         try {
             int randX = r.nextInt(700);
             int randY = r.nextInt(400);
-            Dot d = new Dot(randX,randY);
+            Food d = new Food(randX,randY);
             synchronized(dots){
                 dots.add(d);
             }
@@ -108,11 +108,11 @@ public class Mangiare {
                 synchronized(dots){
                     Iterator i = dots.iterator();
                     while(i.hasNext()){
-                        Dot d = (Dot) i.next();
+                        Food d = (Food) i.next();
                         Rectangle r1 = new Rectangle(d.x,d.y,12,12);
                         if(r1.intersects(r)){
                             i.remove();
-                            te=1;
+                            cek=1;
                             b.size += 1;
                             score += 1;
                             b.nilai +=1;
@@ -142,12 +142,12 @@ public class Mangiare {
             setVisible(true);
         }
         public void paint(Graphics g){
-            for(Blob b : blobs)
+            for(Player b : blobs)
                 b.paint(g);
             synchronized(dots){
                 Iterator i = dots.iterator();
                 while(i.hasNext()){
-                    Dot d = (Dot) i.next();
+                    Food d = (Food) i.next();
                    d.paint(g);
                 }
             }

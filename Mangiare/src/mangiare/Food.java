@@ -14,12 +14,12 @@ import java.util.Random;
  *
  * @author sai
  */
-class Dot extends Component{
+class Food extends Component{
     public int x;
     public int y;
     public Color c;
     
-    Dot(int x, int y){
+    Food(int x, int y){
         this.x=x;
         this.y=y;
         Random rand = new Random();
