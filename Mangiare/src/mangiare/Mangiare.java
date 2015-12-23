@@ -24,6 +24,8 @@ public class Mangiare {
     static int score =10;
     static int xDis = 0;
     static int yDis = 0;
+    private int FrameX=800;
+    private int FrameY=800;
     int cek;
     
     MyFrame mf = new MyFrame("Mangiare");
@@ -45,7 +47,7 @@ public class Mangiare {
                  //KECEPATAN
                 double easingAmount=0;
                 if(b.size<350){
-                    easingAmount = 280/b.size;
+                    easingAmount = 180/b.size;
                 }else{
                     easingAmount = 1.0;
                 }
@@ -54,20 +56,33 @@ public class Mangiare {
                     double targetX= (easingAmount*xDis/dis);
                     double targetY= (easingAmount*yDis/dis);
                     if(targetX>=1 || targetX<=-1 ){
-                        b.x += targetX;
+                        if(targetX>=1 && b.x<FrameX-20){
+                             b.x += targetX;
+                        }else if(targetX<=-1&&b.x>10){
+                            b.x += targetX;
+                        }
+                       
                      }else{
                         if(targetX<0){
+                            if(b.x>0)
                             b.x += -1;
                         }else{
+                            if(b.x<FrameX)
                             b.x += 1;
                         }
                     }
                     if(targetY>=1 || targetY<=-1 ){
-                        b.y += targetY;
+                        if(targetY>=1&&b.y<FrameY-50){
+                             b.y += targetY;
+                        }else if(targetY<=-1&&b.y>30){
+                            b.y += targetY;
+                        }
                      }else{
                         if(targetY<0){
+                            if(b.y>0)
                             b.y += -1;
                         }else{
+                            if(b.y<FrameY)
                             b.y += 1;
                         }
                     }
@@ -79,6 +94,7 @@ public class Mangiare {
                     System.out.println(score);
                 }
                 mf.repaint();
+               
                 
             }catch(Exception e){
 
@@ -91,8 +107,8 @@ public class Mangiare {
         Random r = new Random();
         try {
             for(i=0;i<51;i++){
-                int randX = r.nextInt(900);
-                int randY = r.nextInt(600);
+                int randX = r.nextInt(FrameX-100);
+                int randY = r.nextInt(FrameY-100);
                 Food d = new Food(randX,randY);
                 synchronized(dots){
                     dots.add(d);
@@ -107,8 +123,8 @@ public class Mangiare {
     public void tambahMakanan(){
         Random r = new Random();
         try {
-            int randX = r.nextInt(700);
-            int randY = r.nextInt(400);
+            int randX = r.nextInt(FrameX-100);
+            int randY = r.nextInt(FrameY-100);
             Food d = new Food(randX,randY);
             synchronized(dots){
                 dots.add(d);
@@ -162,7 +178,7 @@ public class Mangiare {
     class MyFrame extends Frame{
         MyFrame(String s){
             super(s);
-            setBounds(0,0,900,600);
+            setBounds(0,0,FrameX,FrameY);
             add(b);
             blobs.add(b);
             setVisible(true);
