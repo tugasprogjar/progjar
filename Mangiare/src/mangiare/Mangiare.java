@@ -42,10 +42,36 @@ public class Mangiare {
                 Random r = new Random();
                 Thread.sleep(r.nextInt(50));
                 double dis = Math.sqrt(xDis*xDis + yDis*yDis);
-                double easingAmount = 180/b.size;   //KECEPATAN
+                 //KECEPATAN
+                double easingAmount=0;
+                if(b.size<350){
+                    easingAmount = 280/b.size;
+                }else{
+                    easingAmount = 1.0;
+                }
+                 
                 if(dis > 1){
-                    b.x += easingAmount*xDis/dis;
-                    b.y += easingAmount*yDis/dis;    
+                    double targetX= (easingAmount*xDis/dis);
+                    double targetY= (easingAmount*yDis/dis);
+                    if(targetX>=1 || targetX<=-1 ){
+                        b.x += targetX;
+                     }else{
+                        if(targetX<0){
+                            b.x += -1;
+                        }else{
+                            b.x += 1;
+                        }
+                    }
+                    if(targetY>=1 || targetY<=-1 ){
+                        b.y += targetY;
+                     }else{
+                        if(targetY<0){
+                            b.y += -1;
+                        }else{
+                            b.y += 1;
+                        }
+                    }
+                     
                 }
                 if(cek == 1){
                     tambahMakanan();
