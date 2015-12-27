@@ -24,8 +24,8 @@ public class Mangiare {
     static int score =10;
     static int xDis = 0;
     static int yDis = 0;
-    private int FrameX=800;
-    private int FrameY=800;
+    private int FrameX=1366;
+    private int FrameY=768;
     int cek;
     
     MyFrame mf = new MyFrame("Mangiare");
@@ -46,7 +46,7 @@ public class Mangiare {
                 double dis = Math.sqrt(xDis*xDis + yDis*yDis);
                  //KECEPATAN
                 double easingAmount=0;
-                if(b.size<350){
+                if(b.size<180){
                     easingAmount = 180/b.size;
                 }else{
                     easingAmount = 1.0;
@@ -86,14 +86,14 @@ public class Mangiare {
                             b.y += 1;
                         }
                     }
-                     
+                      mf.repaint();
                 }
                 if(cek == 1){
                     tambahMakanan();
                     cek=0;
                     System.out.println(score);
                 }
-                mf.repaint();
+               
                
                 
             }catch(Exception e){
@@ -107,14 +107,14 @@ public class Mangiare {
         Random r = new Random();
         try {
             for(i=0;i<51;i++){
-                int randX = r.nextInt(FrameX-100);
-                int randY = r.nextInt(FrameY-100);
+                int randX = r.nextInt(FrameX-10);
+                int randY = r.nextInt(FrameY-10);
                 Food d = new Food(randX,randY);
                 synchronized(dots){
                     dots.add(d);
                 }
                 mf.add(d);
-                mf.repaint();
+               // mf.repaint();
                 //System.out.println(score);
             }
         } catch (Exception e) {
@@ -123,8 +123,8 @@ public class Mangiare {
     public void tambahMakanan(){
         Random r = new Random();
         try {
-            int randX = r.nextInt(FrameX-100);
-            int randY = r.nextInt(FrameY-100);
+            int randX = r.nextInt(FrameX);
+            int randY = r.nextInt(FrameY);
             Food d = new Food(randX,randY);
             synchronized(dots){
                 dots.add(d);
