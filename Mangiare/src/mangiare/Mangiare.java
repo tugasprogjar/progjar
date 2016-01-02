@@ -18,7 +18,9 @@ import java.util.Random;
 public class Mangiare {
     ArrayList<Player> blobs = new ArrayList<Player>();
     public ArrayList<Food> dots = new ArrayList<Food>();
+    public ArrayList<Ranjau> ranjau = new ArrayList<Ranjau>();
     Player b = new Player(10,10,10,Color.blue,10);
+    
     int mouseX = 0;
     int mouseY = 0;
     static int score =10;
@@ -39,6 +41,7 @@ public class Mangiare {
         Thread t = new Thread(rf);
         t.start();
         sebarMakanan();
+        sebarRanjau();
         while(true){
             try{
                 Random r = new Random();
@@ -103,10 +106,10 @@ public class Mangiare {
         }
     }
     public void sebarMakanan(){
-        int i;
+       
         Random r = new Random();
         try {
-            for(i=0;i<51;i++){
+            for(int i=0;i<51;i++){
                 int randX = r.nextInt(FrameX-100);
                 int randY = r.nextInt(FrameY-100);
                 Food d = new Food(randX,randY);
@@ -120,6 +123,7 @@ public class Mangiare {
         } catch (Exception e) {
         }
     }
+
     public void tambahMakanan(){
         Random r = new Random();
         try {
@@ -136,6 +140,26 @@ public class Mangiare {
         } catch (Exception e) {
         }
     }
+    
+    public void sebarRanjau(){
+       
+        Random r = new Random();
+        try {
+            for(int i=0;i<500;i++){
+                int randX = r.nextInt(FrameX-100);
+                int randY = r.nextInt(FrameY-100);
+                Ranjau e = new Ranjau(randX,randY);
+                synchronized(ranjau){
+                    ranjau.add(e);
+                }
+                mf.add(e);
+                mf.repaint();
+                System.out.println(score);
+            }
+        } catch (Exception e) {
+        }
+    }
+    
     class Refresh implements Runnable{
 
         public void run() {
